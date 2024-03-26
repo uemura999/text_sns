@@ -15,21 +15,14 @@ class MyHomePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           try {
-            final firstUserDoc = await FirebaseFirestore.instance
+            const data =
+                PublicUser(followerCount: 0, followingCount: 0, uid: "second");
+            final json = data.toJson();
+            await FirebaseFirestore.instance
                 .collection('public_users')
-                .doc("first")
-                .get();
-
-            final firstUserJson = firstUserDoc.data();
-            if (firstUserJson == null) {
-              debugPrint("The first user is null");
-              return;
-            } else {
-              final firstUser = PublicUser.fromJson(firstUserJson);
-              debugPrint("UserId: ${firstUser.uid}");
-            }
-
-            debugPrint("Successfully fetched data");
+                .doc(data.uid)
+                .set(json);
+            debugPrint("Successfully added data");
           } catch (e) {
             debugPrint("The access was denied: $e");
           }
