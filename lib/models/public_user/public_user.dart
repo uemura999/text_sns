@@ -5,6 +5,7 @@ part 'public_user.g.dart';
 
 @freezed
 abstract class PublicUser implements _$PublicUser {
+  const PublicUser._();
   const factory PublicUser({
     required int followerCount,
     required int followingCount,
