@@ -8,8 +8,11 @@ flutter run --flavor dev -t lib/main_dev.dart
 ### prod
 flutter run --flavor prod -t lib/main_prod.dart
 
-### format
+## format
 dart format --set-exit-if-changed .
 
 flutter analyze .
+
+## automatic creation
+flutter pub run build_runner build --delete-conflicting-outputs
 
