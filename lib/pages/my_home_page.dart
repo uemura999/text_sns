@@ -26,7 +26,7 @@ class MyHomePage extends StatelessWidget {
               return;
             } else {
               final firstUser = PublicUser.fromJson(firstUserJson);
-              print("UserId: ${firstUser.uid}");
+              debugPrint("UserId: ${firstUser.uid}");
             }
 
             debugPrint("Successfully fetched data");
