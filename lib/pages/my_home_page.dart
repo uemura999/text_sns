@@ -18,11 +18,12 @@ class MyHomePage extends StatelessWidget {
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),
-      body: Center(
-        child: Text(
-          'Hello ${F.title}',
-        ),
-      ),
+      body: Center(child: Obx(() {
+        return Text(
+          'UserId ${controller.rxDoc.value?.id ?? 'null'}',
+          style: const TextStyle(fontSize: 40.0),
+        );
+      })),
     );
   }
 }

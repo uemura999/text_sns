@@ -15,7 +15,7 @@ class MyHomePageController extends GetxController {
 
   Future<void> _createDoc() async {
     final repository = FirestoreRepository();
-    const user = PublicUser(uid: 'ui_core');
+    const user = PublicUser(uid: 'obx');
     final data = user.toJson();
     final ref = FirebaseFirestore.instance.collection('users').doc(user.uid);
     final result = await repository.createDoc(ref, data);
