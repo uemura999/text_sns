@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:text_sns/constant/my_home_page_constant.dart';
 import 'package:text_sns/models/public_user/public_user.dart';
 import 'package:text_sns/repository/firestore_repository.dart';
 import 'package:text_sns/typedefs/firestore_typedef.dart';
@@ -21,7 +22,7 @@ class MyHomePageController extends GetxController {
     result.when(success: (_) async {
       await _readDoc(ref);
     }, failure: () {
-      debugPrint('Failed to create doc');
+      debugPrint(MyHomePageConstant.createUserFailureMsg);
     });
   }
 
@@ -30,9 +31,9 @@ class MyHomePageController extends GetxController {
     final result = await repository.getDoc(ref);
     result.when(success: (doc) {
       rxDoc.value = doc;
-      debugPrint('Successfully read doc: ${doc.data()}');
+      debugPrint('${MyHomePageConstant.readUserSuccessMsg}: ${doc.data()}');
     }, failure: () {
-      debugPrint('Failed to read doc');
+      debugPrint(MyHomePageConstant.readUserFailureMsg);
     });
   }
 }
