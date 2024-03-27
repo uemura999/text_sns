@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:text_sns/constant/my_home_page_constant.dart';
 import 'package:text_sns/models/public_user/public_user.dart';
 import 'package:text_sns/repository/firestore_repository.dart';
 import 'package:text_sns/typedefs/firestore_typedef.dart';
+import 'package:text_sns/ui_core/ui_helper.dart';
 
 class MyHomePageController extends GetxController {
   final rxDoc = Rx<Doc?>(null);
@@ -15,14 +15,14 @@ class MyHomePageController extends GetxController {
 
   Future<void> _createDoc() async {
     final repository = FirestoreRepository();
-    const user = PublicUser(uid: 'fromRepository');
+    const user = PublicUser(uid: 'ui_core');
     final data = user.toJson();
     final ref = FirebaseFirestore.instance.collection('users').doc(user.uid);
     final result = await repository.createDoc(ref, data);
     result.when(success: (_) async {
       await _readDoc(ref);
     }, failure: () {
-      debugPrint(MyHomePageConstant.createUserFailureMsg);
+      UIHelper.showFlutterToast(MyHomePageConstant.createUserFailureMsg);
     });
   }
 
@@ -31,9 +31,9 @@ class MyHomePageController extends GetxController {
     final result = await repository.getDoc(ref);
     result.when(success: (doc) {
       rxDoc.value = doc;
-      debugPrint('${MyHomePageConstant.readUserSuccessMsg}: ${doc.data()}');
+      UIHelper.showFlutterToast(MyHomePageConstant.readUserSuccessMsg);
     }, failure: () {
-      debugPrint(MyHomePageConstant.readUserFailureMsg);
+      UIHelper.showFlutterToast(MyHomePageConstant.readUserFailureMsg);
     });
   }
 }
