@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:text_sns/controllers/auth_controller.dart';
+import 'package:text_sns/view/common/rounded_button.dart';
+import 'package:text_sns/view/common/text_field_container.dart';
 
 abstract class AuthState<T extends StatefulWidget> extends State<T> {
   final _formKey = GlobalKey<FormState>();
@@ -37,32 +39,39 @@ abstract class AuthState<T extends StatefulWidget> extends State<T> {
   //email入力をする関数
   Widget _emailTextField() {
     final controller = AuthController.to;
-    return TextFormField(
-      decoration: const InputDecoration(hintText: "mail address"),
-      onSaved: controller.setEmail,
-      validator: (value) {
-        return GetUtils.isEmail(value!)
-            ? null
-            : "Please enter a valid email address";
-      },
+    return TextFieldContainer(
+      child: TextFormField(
+        decoration: const InputDecoration(hintText: "mail address"),
+        onSaved: controller.setEmail,
+        validator: (value) {
+          return GetUtils.isEmail(value!)
+              ? null
+              : "Please enter a valid email address";
+        },
+      ),
     );
   }
 
   //password入力をする関数
   Widget _passwordTextField() {
     final controller = AuthController.to;
-    return TextFormField(
-      obscureText: true,
-      decoration: const InputDecoration(hintText: "password"),
-      onSaved: controller.setPassword,
-      validator: (value) {
-        return value!.length > 7 ? null : "Please enter at least 8 characters";
-      },
+    return TextFieldContainer(
+      child: TextFormField(
+        obscureText: true,
+        decoration: const InputDecoration(hintText: "password"),
+        onSaved: controller.setPassword,
+        validator: (value) {
+          return value!.length > 7
+              ? null
+              : "Please enter at least 8 characters";
+        },
+      ),
     );
   }
 
   Widget _positiveButton() {
-    return ElevatedButton(
+    return RoundedButton(
+      buttonColor: Colors.orange,
       onPressed: () async {
         //validation
         if (_formKey.currentState!.validate()) {
@@ -71,7 +80,7 @@ abstract class AuthState<T extends StatefulWidget> extends State<T> {
         }
         AuthController.to.onPositiveButtonPressed();
       },
-      child: const Text("Send"),
+      textValue: "Send",
     );
   }
 
