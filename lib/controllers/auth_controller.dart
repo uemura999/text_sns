@@ -21,7 +21,7 @@ class AuthController extends GetxController {
   }
 
   void onPositiveButtonPressed() async {
-    if (GetUtils.isEmail(email) && password.length > 7) {
+    if (GetUtils.isEmail(email.trim()) && password.trim().length > 7) {
       rxIsLoginMode.value
           ? await _signInWithEmailAndPassword()
           : await _createUserWithEmailAndPassword();
@@ -40,7 +40,17 @@ class AuthController extends GetxController {
     });
   }
 
-  Future<void> _signInWithEmailAndPassword() async {}
+  Future<void> _signInWithEmailAndPassword() async {
+    final repository = AuthRepository();
+    final result = await repository.signInWithEmailAndPassword(
+        email.trim(), password.trim());
+    result.when(success: (res) {
+      rxAuthUser.value = res;
+      UIHelper.showFlutterToast("Successfully logged in");
+    }, failure: () {
+      UIHelper.showFlutterToast("Failed to log in");
+    });
+  }
 
   void onSignOutButtonPressed() async {
     await _signOut();
