@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:text_sns/controllers/auth_controller.dart';
 import 'package:text_sns/controllers/my_home_page_controller.dart';
 import 'package:text_sns/view/pages/my_home_page/components/auth_screen/auth_screen.dart';
+import 'package:text_sns/view/pages/my_home_page/components/verify_email_screen.dart';
 import '../../../flavors.dart';
 
 class MyHomePage extends StatelessWidget {
@@ -18,8 +19,11 @@ class MyHomePage extends StatelessWidget {
         ),
         body: Obx(() {
           const style = TextStyle(fontSize: 60.0);
-          if (authController.rxAuthUser.value == null) {
+          final authUser = authController.rxAuthUser.value;
+          if (authUser == null) {
             return const AuthScreen();
+          } else if (!authUser.emailVerified) {
+            return const VerifyEmailScreen();
           } else {
             return ElevatedButton(
                 onPressed: authController.onSignOutButtonPressed,
