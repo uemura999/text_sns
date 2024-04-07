@@ -5,7 +5,7 @@ import 'package:text_sns/ui_core/ui_helper.dart';
 
 class AuthController extends GetxController {
   static AuthController get to => Get.find<AuthController>();
-  final rxAuthUser = Rx<User?>(null);
+  final rxAuthUser = Rx<User?>(FirebaseAuth.instance.currentUser);
   final rxIsLoginMode = true.obs;
   String email = '';
   String password = '';
@@ -41,6 +41,21 @@ class AuthController extends GetxController {
   }
 
   Future<void> _signInWithEmailAndPassword() async {}
+
+  void onSignOutButtonPressed() async {
+    await _signOut();
+  }
+
+  Future<void> _signOut() async {
+    final repository = AuthRepository();
+    final result = await repository.signOut();
+    result.when(success: (_) {
+      rxAuthUser.value = null;
+      UIHelper.showFlutterToast("Successfully signed out");
+    }, failure: () {
+      UIHelper.showFlutterToast("Failed to sign out");
+    });
+  }
 
   void _toggleIsLoginMode() => rxIsLoginMode.value = !rxIsLoginMode.value;
   void onToggleIsLoginMode() => _toggleIsLoginMode();

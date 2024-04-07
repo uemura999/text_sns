@@ -14,4 +14,8 @@ class AuthClient {
         .signInWithEmailAndPassword(email: email, password: password);
     return credential;
   }
+
+  Future<void> signOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
 }

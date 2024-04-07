@@ -30,4 +30,14 @@ class AuthRepository {
       return const Result.failure();
     }
   }
+
+  FutureResult<bool> signOut() async {
+    final client = AuthClient();
+    try {
+      await client.signOut();
+      return const Result.success(true);
+    } catch (e) {
+      return const Result.failure();
+    }
+  }
 }
