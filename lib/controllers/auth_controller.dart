@@ -58,5 +58,5 @@ class AuthController extends GetxController {
   }
 
   void _toggleIsLoginMode() => rxIsLoginMode.value = !rxIsLoginMode.value;
-  void onToggleIsLoginMode() => _toggleIsLoginMode();
+  void onToggleIsLoginModeButtonPressed() => _toggleIsLoginMode();
 }
