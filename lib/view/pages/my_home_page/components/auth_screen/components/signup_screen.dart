@@ -9,6 +9,8 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen> {
   late double? _deviceHeight;
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -19,6 +21,7 @@ class _SignupScreenState extends State<SignupScreen> {
         children: [
           _titleWidget(),
           _signupForm(),
+          _positiveButton(),
         ],
       ),
     );
@@ -37,6 +40,7 @@ class _SignupScreenState extends State<SignupScreen> {
     return SizedBox(
       height: _deviceHeight! * 0.30,
       child: Form(
+        key: _formKey,
         child: Column(
           children: [
             _emailTextField(),
@@ -51,6 +55,9 @@ class _SignupScreenState extends State<SignupScreen> {
   Widget _emailTextField() {
     return TextFormField(
       decoration: const InputDecoration(hintText: "mail address"),
+      validator: (value) {
+        return value!.isEmpty ? "Please enter your email address" : null;
+      },
     );
   }
 
@@ -59,6 +66,22 @@ class _SignupScreenState extends State<SignupScreen> {
     return TextFormField(
       obscureText: true,
       decoration: const InputDecoration(hintText: "password"),
+      validator: (value) {
+        return value!.isEmpty ? "Please enter your password" : null;
+      },
+    );
+  }
+
+  Widget _positiveButton() {
+    return ElevatedButton(
+      onPressed: () {
+        //validation
+        if (_formKey.currentState!.validate()) {
+          //form fieldの情報を変数に保存
+          _formKey.currentState!.save();
+        }
+      },
+      child: const Text("Send"),
     );
   }
 }
