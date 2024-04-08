@@ -9,15 +9,14 @@ abstract class AuthState<T extends StatefulWidget> extends State<T> {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          titleWidget(),
-          _signupForm(),
-          _positiveButton(),
-          toggleLoginModeButton(),
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        titleWidget(),
+        _signupForm(),
+        _positiveButton(),
+        toggleLoginModeButton(),
+      ],
     );
   }
 
