@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:text_sns/constant/verify_email_constant.dart';
 import 'package:text_sns/controllers/auth_controller.dart';
 import 'package:text_sns/repository/auth_repository.dart';
 import 'package:text_sns/ui_core/ui_helper.dart';
@@ -21,9 +22,10 @@ class VerifyEmailController extends GetxController {
     final result = await repository.sendEmailVerification(user);
     result.when(success: (_) {
       _startTimer(user);
-      UIHelper.showFlutterToast("Sent verification email");
+      UIHelper.showFlutterToast(VerifyEmailConstant.sentVerificationEmailMsg);
     }, failure: () {
-      UIHelper.showFlutterToast("Failed to send verification email");
+      UIHelper.showFlutterToast(
+          VerifyEmailConstant.failedToSendVerificationEmailMsg);
     });
   }
 

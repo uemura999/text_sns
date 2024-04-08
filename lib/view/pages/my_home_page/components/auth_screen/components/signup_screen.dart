@@ -15,13 +15,13 @@ class _SignupScreenState extends AuthState<SignupScreen> {
   Widget titleWidget() {
     return const Text(
       AuthConstant.signupTitle,
-      style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
+      style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
     );
   }
 
   @override
   Widget toggleLoginModeButton() {
-    const style = TextStyle(fontSize: 25.0, color: Colors.purple);
+    const style = TextStyle(fontSize: 15.0, color: Colors.purple);
     return TextButton(
         onPressed: AuthController.to.onToggleIsLoginModeButtonPressed,
         child: const Text(

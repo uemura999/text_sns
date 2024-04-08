@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:text_sns/constant/verify_email_constant.dart';
 import 'package:text_sns/controllers/verify_email_controller.dart';
 
 class VerifyEmailScreen extends StatelessWidget {
@@ -11,7 +12,7 @@ class VerifyEmailScreen extends StatelessWidget {
     Get.put(VerifyEmailController());
     const style = TextStyle(fontSize: 40.0);
     return const Center(
-      child: Text('Verify email address', style: style),
+      child: Text(VerifyEmailConstant.verifyEmailScreen, style: style),
     );
   }
 }
