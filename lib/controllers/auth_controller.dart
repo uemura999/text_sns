@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:text_sns/constant/auth_constant.dart';
 import 'package:text_sns/repository/auth_repository.dart';
 import 'package:text_sns/ui_core/ui_helper.dart';
 
@@ -34,9 +35,9 @@ class AuthController extends GetxController {
         email.trim(), password.trim());
     result.when(success: (res) {
       rxAuthUser.value = res;
-      UIHelper.showFlutterToast("Successfully created user");
+      UIHelper.showFlutterToast(AuthConstant.signupSuccessMsg);
     }, failure: () {
-      UIHelper.showFlutterToast("Failed to create user");
+      UIHelper.showFlutterToast(AuthConstant.signupFailureMsg);
     });
   }
 
@@ -46,9 +47,9 @@ class AuthController extends GetxController {
         email.trim(), password.trim());
     result.when(success: (res) {
       rxAuthUser.value = res;
-      UIHelper.showFlutterToast("Successfully logged in");
+      UIHelper.showFlutterToast(AuthConstant.loginSuccessMsg);
     }, failure: () {
-      UIHelper.showFlutterToast("Failed to log in");
+      UIHelper.showFlutterToast(AuthConstant.loginFailureMsg);
     });
   }
 
@@ -61,9 +62,9 @@ class AuthController extends GetxController {
     final result = await repository.signOut();
     result.when(success: (_) {
       rxAuthUser.value = null;
-      UIHelper.showFlutterToast("Successfully signed out");
+      UIHelper.showFlutterToast(AuthConstant.signoutSuccessMsg);
     }, failure: () {
-      UIHelper.showFlutterToast("Failed to sign out");
+      UIHelper.showFlutterToast(AuthConstant.signoutFailureMsg);
     });
   }
 
