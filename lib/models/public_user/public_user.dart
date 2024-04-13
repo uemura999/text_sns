@@ -9,6 +9,7 @@ abstract class PublicUser implements _$PublicUser {
   const factory PublicUser({
     @Default(0) int followerCount,
     @Default(0) int followingCount,
+    @Default("") String name,
     required String uid,
   }) = _PublicUser;
 

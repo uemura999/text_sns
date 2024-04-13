@@ -22,6 +22,7 @@ PublicUser _$PublicUserFromJson(Map<String, dynamic> json) {
 mixin _$PublicUser {
   int get followerCount => throw _privateConstructorUsedError;
   int get followingCount => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
   String get uid => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -36,7 +37,7 @@ abstract class $PublicUserCopyWith<$Res> {
           PublicUser value, $Res Function(PublicUser) then) =
       _$PublicUserCopyWithImpl<$Res, PublicUser>;
   @useResult
-  $Res call({int followerCount, int followingCount, String uid});
+  $Res call({int followerCount, int followingCount, String name, String uid});
 }
 
 /// @nodoc
@@ -54,6 +55,7 @@ class _$PublicUserCopyWithImpl<$Res, $Val extends PublicUser>
   $Res call({
     Object? followerCount = null,
     Object? followingCount = null,
+    Object? name = null,
     Object? uid = null,
   }) {
     return _then(_value.copyWith(
@@ -65,6 +67,10 @@ class _$PublicUserCopyWithImpl<$Res, $Val extends PublicUser>
           ? _value.followingCount
           : followingCount // ignore: cast_nullable_to_non_nullable
               as int,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
       uid: null == uid
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
@@ -81,7 +87,7 @@ abstract class _$$PublicUserImplCopyWith<$Res>
       __$$PublicUserImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int followerCount, int followingCount, String uid});
+  $Res call({int followerCount, int followingCount, String name, String uid});
 }
 
 /// @nodoc
@@ -97,6 +103,7 @@ class __$$PublicUserImplCopyWithImpl<$Res>
   $Res call({
     Object? followerCount = null,
     Object? followingCount = null,
+    Object? name = null,
     Object? uid = null,
   }) {
     return _then(_$PublicUserImpl(
@@ -108,6 +115,10 @@ class __$$PublicUserImplCopyWithImpl<$Res>
           ? _value.followingCount
           : followingCount // ignore: cast_nullable_to_non_nullable
               as int,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
       uid: null == uid
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
@@ -120,7 +131,10 @@ class __$$PublicUserImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$PublicUserImpl extends _PublicUser {
   const _$PublicUserImpl(
-      {this.followerCount = 0, this.followingCount = 0, required this.uid})
+      {this.followerCount = 0,
+      this.followingCount = 0,
+      this.name = "",
+      required this.uid})
       : super._();
 
   factory _$PublicUserImpl.fromJson(Map<String, dynamic> json) =>
@@ -133,11 +147,14 @@ class _$PublicUserImpl extends _PublicUser {
   @JsonKey()
   final int followingCount;
   @override
+  @JsonKey()
+  final String name;
+  @override
   final String uid;
 
   @override
   String toString() {
-    return 'PublicUser(followerCount: $followerCount, followingCount: $followingCount, uid: $uid)';
+    return 'PublicUser(followerCount: $followerCount, followingCount: $followingCount, name: $name, uid: $uid)';
   }
 
   @override
@@ -149,13 +166,14 @@ class _$PublicUserImpl extends _PublicUser {
                 other.followerCount == followerCount) &&
             (identical(other.followingCount, followingCount) ||
                 other.followingCount == followingCount) &&
+            (identical(other.name, name) || other.name == name) &&
             (identical(other.uid, uid) || other.uid == uid));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, followerCount, followingCount, uid);
+      Object.hash(runtimeType, followerCount, followingCount, name, uid);
 
   @JsonKey(ignore: true)
   @override
@@ -175,6 +193,7 @@ abstract class _PublicUser extends PublicUser {
   const factory _PublicUser(
       {final int followerCount,
       final int followingCount,
+      final String name,
       required final String uid}) = _$PublicUserImpl;
   const _PublicUser._() : super._();
 
@@ -185,6 +204,8 @@ abstract class _PublicUser extends PublicUser {
   int get followerCount;
   @override
   int get followingCount;
+  @override
+  String get name;
   @override
   String get uid;
   @override

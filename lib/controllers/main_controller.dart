@@ -7,6 +7,7 @@ import 'package:text_sns/typedefs/firestore_typedef.dart';
 import 'package:text_sns/ui_core/ui_helper.dart';
 
 class MainController extends GetxController {
+  static MainController get to => Get.find<MainController>();
   final rxPublicUser = Rx<PublicUser?>(null);
 
   @override
