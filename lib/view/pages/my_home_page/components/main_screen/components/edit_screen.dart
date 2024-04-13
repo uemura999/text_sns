@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:text_sns/controllers/edit_controller.dart';
 import 'package:text_sns/view/common/rounded_button.dart';
 import 'package:text_sns/view/common/text_field_container.dart';
 
@@ -14,6 +16,7 @@ class _EditScreenState extends State<EditScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(EditController());
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [_titleWidget(), _form(), _positiveButton()],
@@ -41,13 +44,22 @@ class _EditScreenState extends State<EditScreen> {
     return TextFieldContainer(
         child: TextFormField(
       decoration: const InputDecoration(hintText: "Nickname"),
+      onSaved: EditController.to.setName,
+      validator: (value) {
+        return value!.isEmpty ? "Please enter name" : null;
+      },
     ));
   }
 
   //送信ボタン
   Widget _positiveButton() {
     return RoundedButton(
-      onPressed: () {},
+      onPressed: () {
+        if (_formKey.currentState!.validate()) {
+          _formKey.currentState!.save();
+        }
+        EditController.to.onPositiveButtonPressed();
+      },
       textValue: "Update",
       buttonColor: Colors.green,
     );
