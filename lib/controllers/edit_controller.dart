@@ -4,6 +4,7 @@ import 'package:text_sns/controllers/auth_controller.dart';
 import 'package:text_sns/controllers/main_controller.dart';
 import 'package:text_sns/core/firestore/doc_ref_core.dart';
 import 'package:text_sns/repository/firestore_repository.dart';
+import 'package:text_sns/ui_core/file_core.dart';
 import 'package:text_sns/ui_core/ui_helper.dart';
 
 class EditController extends GetxController {
@@ -35,5 +36,9 @@ class EditController extends GetxController {
     }, failure: () {
       UIHelper.showFlutterToast(EditConstant.failureMsg);
     });
+  }
+
+  void onImageIconTapped() async {
+    await FileCore.getImage();
   }
 }

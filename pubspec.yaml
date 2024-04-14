@@ -24,6 +24,8 @@ dependencies:
   firebase_remote_config: ^4.2.4
   flutter_dotenv: ^5.0.2
   minio_new: ^1.0.2
+  image_cropper: ^4.0.1
+  image_picker: ^1.0.4
 
 dev_dependencies:
   flutter_test:
