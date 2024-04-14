@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:text_sns/controllers/auth_controller.dart';
 import 'package:text_sns/controllers/main_controller.dart';
@@ -16,6 +17,11 @@ class ContentScreen extends StatelessWidget {
             MainController.to.rxPublicUser.value?.name ?? "Null",
             style: style,
           ),
+        ),
+        const SizedBox(height: 20.0),
+        Text(
+          dotenv.get("AWS_S3_USER_IMAGES_BUCKET"),
+          style: style,
         ),
         const SizedBox(height: 20.0),
         ElevatedButton(

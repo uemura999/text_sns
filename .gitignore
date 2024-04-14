@@ -10,7 +10,7 @@
 .svn/
 migrate_working_dir/
 lib/gen
-
+*.env
 # IntelliJ related
 *.iml
 *.ipr
