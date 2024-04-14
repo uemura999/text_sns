@@ -23,6 +23,7 @@ dependencies:
   firebase_auth: ^4.10.1
   firebase_remote_config: ^4.2.4
   flutter_dotenv: ^5.0.2
+  minio_new: ^1.0.2
 
 dev_dependencies:
   flutter_test:
