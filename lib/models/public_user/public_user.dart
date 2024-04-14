@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:text_sns/typedefs/firestore_typedef.dart';
 
 part 'public_user.freezed.dart';
 part 'public_user.g.dart';
@@ -9,6 +10,7 @@ abstract class PublicUser implements _$PublicUser {
   const factory PublicUser({
     @Default(0) int followerCount,
     @Default(0) int followingCount,
+    required SDMap image,
     @Default("") String name,
     required String uid,
   }) = _PublicUser;

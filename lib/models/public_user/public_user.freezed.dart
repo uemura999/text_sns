@@ -22,6 +22,7 @@ PublicUser _$PublicUserFromJson(Map<String, dynamic> json) {
 mixin _$PublicUser {
   int get followerCount => throw _privateConstructorUsedError;
   int get followingCount => throw _privateConstructorUsedError;
+  Map<String, dynamic> get image => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get uid => throw _privateConstructorUsedError;
 
@@ -37,7 +38,12 @@ abstract class $PublicUserCopyWith<$Res> {
           PublicUser value, $Res Function(PublicUser) then) =
       _$PublicUserCopyWithImpl<$Res, PublicUser>;
   @useResult
-  $Res call({int followerCount, int followingCount, String name, String uid});
+  $Res call(
+      {int followerCount,
+      int followingCount,
+      Map<String, dynamic> image,
+      String name,
+      String uid});
 }
 
 /// @nodoc
@@ -55,6 +61,7 @@ class _$PublicUserCopyWithImpl<$Res, $Val extends PublicUser>
   $Res call({
     Object? followerCount = null,
     Object? followingCount = null,
+    Object? image = null,
     Object? name = null,
     Object? uid = null,
   }) {
@@ -67,6 +74,10 @@ class _$PublicUserCopyWithImpl<$Res, $Val extends PublicUser>
           ? _value.followingCount
           : followingCount // ignore: cast_nullable_to_non_nullable
               as int,
+      image: null == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -87,7 +98,12 @@ abstract class _$$PublicUserImplCopyWith<$Res>
       __$$PublicUserImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int followerCount, int followingCount, String name, String uid});
+  $Res call(
+      {int followerCount,
+      int followingCount,
+      Map<String, dynamic> image,
+      String name,
+      String uid});
 }
 
 /// @nodoc
@@ -103,6 +119,7 @@ class __$$PublicUserImplCopyWithImpl<$Res>
   $Res call({
     Object? followerCount = null,
     Object? followingCount = null,
+    Object? image = null,
     Object? name = null,
     Object? uid = null,
   }) {
@@ -115,6 +132,10 @@ class __$$PublicUserImplCopyWithImpl<$Res>
           ? _value.followingCount
           : followingCount // ignore: cast_nullable_to_non_nullable
               as int,
+      image: null == image
+          ? _value._image
+          : image // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -133,9 +154,11 @@ class _$PublicUserImpl extends _PublicUser {
   const _$PublicUserImpl(
       {this.followerCount = 0,
       this.followingCount = 0,
+      required final Map<String, dynamic> image,
       this.name = "",
       required this.uid})
-      : super._();
+      : _image = image,
+        super._();
 
   factory _$PublicUserImpl.fromJson(Map<String, dynamic> json) =>
       _$$PublicUserImplFromJson(json);
@@ -146,6 +169,14 @@ class _$PublicUserImpl extends _PublicUser {
   @override
   @JsonKey()
   final int followingCount;
+  final Map<String, dynamic> _image;
+  @override
+  Map<String, dynamic> get image {
+    if (_image is EqualUnmodifiableMapView) return _image;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_image);
+  }
+
   @override
   @JsonKey()
   final String name;
@@ -154,7 +185,7 @@ class _$PublicUserImpl extends _PublicUser {
 
   @override
   String toString() {
-    return 'PublicUser(followerCount: $followerCount, followingCount: $followingCount, name: $name, uid: $uid)';
+    return 'PublicUser(followerCount: $followerCount, followingCount: $followingCount, image: $image, name: $name, uid: $uid)';
   }
 
   @override
@@ -166,14 +197,15 @@ class _$PublicUserImpl extends _PublicUser {
                 other.followerCount == followerCount) &&
             (identical(other.followingCount, followingCount) ||
                 other.followingCount == followingCount) &&
+            const DeepCollectionEquality().equals(other._image, _image) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.uid, uid) || other.uid == uid));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, followerCount, followingCount, name, uid);
+  int get hashCode => Object.hash(runtimeType, followerCount, followingCount,
+      const DeepCollectionEquality().hash(_image), name, uid);
 
   @JsonKey(ignore: true)
   @override
@@ -193,6 +225,7 @@ abstract class _PublicUser extends PublicUser {
   const factory _PublicUser(
       {final int followerCount,
       final int followingCount,
+      required final Map<String, dynamic> image,
       final String name,
       required final String uid}) = _$PublicUserImpl;
   const _PublicUser._() : super._();
@@ -204,6 +237,8 @@ abstract class _PublicUser extends PublicUser {
   int get followerCount;
   @override
   int get followingCount;
+  @override
+  Map<String, dynamic> get image;
   @override
   String get name;
   @override

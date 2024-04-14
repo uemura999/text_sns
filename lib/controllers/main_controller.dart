@@ -1,6 +1,8 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:text_sns/controllers/auth_controller.dart';
 import 'package:text_sns/core/firestore/doc_ref_core.dart';
+import 'package:text_sns/models/moderated_image/moderated_image.dart';
 import 'package:text_sns/models/public_user/public_user.dart';
 import 'package:text_sns/repository/firestore_repository.dart';
 import 'package:text_sns/typedefs/firestore_typedef.dart';
@@ -38,7 +40,9 @@ class MainController extends GetxController {
 
   Future<void> _createPublicUser(DocRef ref, String uid) async {
     final repository = FirestoreRepository();
-    final newPublicUser = PublicUser(uid: uid);
+    final bucketName = dotenv.get("AWS_S3_USER_IMAGES_BUCKET");
+    final image = ModeratedImage(bucketName: bucketName).toJson();
+    final newPublicUser = PublicUser(uid: uid, image: image);
     final json = newPublicUser.toJson();
     final result = await repository.createDoc(ref, json);
     result.when(success: (_) {
