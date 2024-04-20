@@ -35,7 +35,7 @@ class EditController extends GetxController {
     result.when(success: (_) async {
       await _updatePublicUser(bucket, object);
     }, failure: () {
-      UIHelper.showFlutterToast("Failed to upload image");
+      UIHelper.showFlutterToast(EditConstant.uploadImageFailureMsg);
     });
   }
 

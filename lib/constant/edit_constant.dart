@@ -6,4 +6,6 @@ class EditConstant {
 
   static const successMsg = "Successfully updated name";
   static const failureMsg = "Failed to update name";
+
+  static const uploadImageFailureMsg = "Failed to upload image";
 }
