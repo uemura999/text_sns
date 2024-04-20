@@ -1,5 +1,6 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
+import 'package:text_sns/controllers/abstract/image_controller.dart';
 import 'package:text_sns/controllers/auth_controller.dart';
 import 'package:text_sns/core/firestore/doc_ref_core.dart';
 import 'package:text_sns/enums/env_key.dart';
@@ -9,13 +10,19 @@ import 'package:text_sns/repository/firestore_repository.dart';
 import 'package:text_sns/typedefs/firestore_typedef.dart';
 import 'package:text_sns/ui_core/ui_helper.dart';
 
-class MainController extends GetxController {
+class MainController extends ImageController {
   static MainController get to => Get.find<MainController>();
   final rxPublicUser = Rx<PublicUser?>(null);
 
   @override
   void onInit() async {
     await _manageUserInfo();
+    final publicUser = rxPublicUser.value;
+    if (publicUser == null) return;
+    final image = publicUser.typedImage;
+    final bucket = image.bucketName;
+    final object = image.fileName;
+    await getObject(bucket, object);
     super.onInit();
   }
 

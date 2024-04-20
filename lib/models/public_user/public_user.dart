@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:text_sns/models/moderated_image/moderated_image.dart';
 import 'package:text_sns/typedefs/firestore_typedef.dart';
 
 part 'public_user.freezed.dart';
@@ -17,4 +18,5 @@ abstract class PublicUser implements _$PublicUser {
 
   factory PublicUser.fromJson(Map<String, dynamic> json) =>
       _$PublicUserFromJson(json);
+  ModeratedImage get typedImage => ModeratedImage.fromJson(image);
 }
