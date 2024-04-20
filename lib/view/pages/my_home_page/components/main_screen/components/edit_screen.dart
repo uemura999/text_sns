@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:text_sns/constant/edit_constant.dart';
 import 'package:text_sns/controllers/edit_controller.dart';
+import 'package:text_sns/view/common/byte_image.dart';
 import 'package:text_sns/view/common/rounded_button.dart';
 import 'package:text_sns/view/common/text_field_container.dart';
 
@@ -68,12 +69,19 @@ class _EditScreenState extends State<EditScreen> {
 
   //画像を選択するアイコン
   Widget _image() {
-    return InkWell(
-      onTap: EditController.to.onImageIconTapped,
-      child: const Icon(
-        Icons.image,
-        size: 60.0,
-      ),
-    );
+    return Obx(() {
+      final uint8list = EditController.to.rxUint8list.value;
+      return uint8list == null
+          ? InkWell(
+              onTap: EditController.to.onImageIconTapped,
+              child: const Icon(
+                Icons.image,
+                size: 60.0,
+              ),
+            )
+          : InkWell(
+              onTap: EditController.to.onImageIconTapped,
+              child: ByteImage(bytes: uint8list));
+    });
   }
 }
