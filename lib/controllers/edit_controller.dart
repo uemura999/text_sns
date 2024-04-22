@@ -6,8 +6,10 @@ import 'package:text_sns/constant/edit_constant.dart';
 import 'package:text_sns/controllers/auth_controller.dart';
 import 'package:text_sns/controllers/main_controller.dart';
 import 'package:text_sns/core/firestore/doc_ref_core.dart';
+import 'package:text_sns/core/id_core/id_core.dart';
 import 'package:text_sns/enums/env_key.dart';
 import 'package:text_sns/models/moderated_image/moderated_image.dart';
+import 'package:text_sns/models/user_update_log/user_update_log.dart';
 import 'package:text_sns/repository/aws_s3_repository.dart';
 import 'package:text_sns/repository/firestore_repository.dart';
 import 'package:text_sns/ui_core/file_core.dart';
@@ -29,7 +31,7 @@ class EditController extends GetxController {
     //画像をアップロードする
     final repository = AWSS3Repository();
     final bucket = dotenv.get(EnvKey.AWS_S3_USER_IMAGES_BUCKET.name);
-    const object = "s3-second-image.jpg";
+    const object = "s3-third-image.jpg";
     final data = Stream.value(uint8list!);
     final result = await repository.putObject(bucket, object, data);
     result.when(success: (_) async {
@@ -42,11 +44,12 @@ class EditController extends GetxController {
   Future<void> _updatePublicUser(String bucketName, String fileName) async {
     final repository = FirestoreRepository();
     final uid = AuthController.to.rxAuthUser.value!.uid;
-    final ref = DocRefCore.publicUserDocRef(uid);
+    final logId = IDCore.uuidV4();
+    final ref = DocRefCore.userUpdateLogDocRef(uid, logId);
     final image =
         ModeratedImage(bucketName: bucketName, fileName: fileName).toJson();
-    final data = {"name": name, "image": image};
-    final result = await repository.updateDoc(ref, data);
+    final data = UserUpdateLog(image: image, name: name, uid: uid).toJson();
+    final result = await repository.createDoc(ref, data);
     result.when(success: (_) {
       final oldPublicUser = MainController.to.rxPublicUser.value;
       if (oldPublicUser == null) return;

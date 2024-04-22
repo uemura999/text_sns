@@ -10,7 +10,7 @@ const AWS_REGION = "ap-northeast-1";
 function updateAWSConfig() {
     AWS.config.update({
         accessKeyId: process.env.AWS_ACCESS_KEY,
-        secretAccessKey: processs.env.AWS_SECRET_ACCESS_KEY,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
         region: AWS_REGION,
     });
 }
@@ -44,3 +44,17 @@ async function moderateImage(image) {
         return image;
     }
 }
+
+exports.onUserUpdateLogCreate = functions
+.runWith({secrets: ["AWS_ACCESS_KEY", "AWS_SECRET_ACCESS_KEY"]})
+.firestore
+.document("public_users/{uid}/user_update_logs/{log_id}").onCreate(
+    async (snap, _) => {
+        const data = snap.data();
+        const moderatedImage = await moderateImage(data['image']);
+        await db.collection('public_users').doc(data['uid']).update({
+            "name": data['name'],
+            "image": moderatedImage,
+        })
+    }
+)

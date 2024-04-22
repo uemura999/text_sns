@@ -26,6 +26,7 @@ dependencies:
   minio_new: ^1.0.2
   image_cropper: ^4.0.1
   image_picker: ^1.0.4
+  uuid: ^3.0.7
 
 dev_dependencies:
   flutter_test:

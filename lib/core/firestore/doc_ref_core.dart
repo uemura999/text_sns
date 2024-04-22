@@ -4,4 +4,6 @@ import 'package:text_sns/typedefs/firestore_typedef.dart';
 class DocRefCore {
   static DocRef publicUserDocRef(String uid) =>
       ColRefCore.publicUsersColRef().doc(uid);
+  static DocRef userUpdateLogDocRef(String uid, String logId) =>
+      ColRefCore.userUpdateLogsColRef(uid).doc(logId);
 }

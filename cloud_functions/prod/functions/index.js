@@ -1,19 +1,60 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * const {onCall} = require("firebase-functions/v2/https");
- * const {onDocumentWritten} = require("firebase-functions/v2/firestore");
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
+//基本的な設定
+const functions = require("firebase-functions");
+const admin = require("firebase-admin");
+admin.initializeApp();
+const db = admin.firestore();
+// AWS 
+const AWS = require("aws-sdk");
+const AWS_REGION = "ap-northeast-1";
 
-const {onRequest} = require("firebase-functions/v2/https");
-const logger = require("firebase-functions/logger");
+function updateAWSConfig() {
+    AWS.config.update({
+        accessKeyId: process.env.AWS_ACCESS_KEY,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+        region: AWS_REGION,
+    });
+}
+async function moderateImage(image) {
+    updateAWSConfig();
+    const rekognition = new AWS.Rekognition();
+    const bucketName = image["bucketName"];
+    const fileName = image["fileName"];
+    if (!bucketName || !fileName) {
+        return image;
+    }
+    try {
+        const params = {
+            Image: {
+                S3Object: {
+                    Bucket: bucketName,
+                    Name: fileName,
+                }
+            },
+            MinConfidence: 60,
+        };
+        const response = await rekognition.detectModerationLabels(params).promise();
+        const result = {
+            "bucketName": bucketName,
+            "moderationLabels": response.ModerationLabels,
+            "moderationModelVersion": response.ModerationModelVersion,
+            "fileName": fileName,
+        };
+        return result;
+    } catch (e) {
+        return image;
+    }
+}
 
-// Create and deploy your first functions
-// https://firebase.google.com/docs/functions/get-started
-
-// exports.helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+exports.onUserUpdateLogCreate = functions
+.runWith({secrets: ["AWS_ACCESS_KEY", "AWS_SECRET_ACCESS_KEY"]})
+.firestore
+.document("public_users/{uid}/user_update_logs/{log_id}").onCreate(
+    async (snap, _) => {
+        const data = snap.data();
+        const moderatedImage = await moderateImage(data['image']);
+        await db.collection('public_users').doc(data['uid']).update({
+            "name": data['name'],
+            "image": moderatedImage,
+        })
+    }
+)
