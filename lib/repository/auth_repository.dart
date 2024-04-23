@@ -50,4 +50,14 @@ class AuthRepository {
       return const Result.failure();
     }
   }
+
+  FutureResult<bool> verifyBeforeUpdateEmail(User user, String newEmail) async {
+    final client = AuthClient();
+    try {
+      await client.verifyBeforeUpdateEmail(user, newEmail);
+      return const Result.success(true);
+    } catch (e) {
+      return const Result.failure();
+    }
+  }
 }
