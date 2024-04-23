@@ -2,7 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:text_sns/constant/auth_constant.dart';
 import 'package:text_sns/repository/auth_repository.dart';
+import 'package:text_sns/ui_core/dialog_core.dart';
 import 'package:text_sns/ui_core/ui_helper.dart';
+import 'package:text_sns/view/pages/logouted_page.dart';
 
 class AuthController extends GetxController {
   static AuthController get to => Get.find<AuthController>();
@@ -54,14 +56,17 @@ class AuthController extends GetxController {
   }
 
   void onSignOutButtonPressed() async {
-    await _signOut();
+    DialogCore.cupertinoAlertDialog(
+        "Are you sure sign out?", "Confirmation of sign out", () async {
+      await _signOut();
+    });
   }
 
   Future<void> _signOut() async {
     final repository = AuthRepository();
     final result = await repository.signOut();
     result.when(success: (_) {
-      rxAuthUser.value = null;
+      Get.toNamed(LogoutedPage.path);
       UIHelper.showFlutterToast(AuthConstant.signoutSuccessMsg);
     }, failure: () {
       UIHelper.showFlutterToast(AuthConstant.signoutFailureMsg);

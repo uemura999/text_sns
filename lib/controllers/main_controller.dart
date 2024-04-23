@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:text_sns/controllers/abstract/image_controller.dart';
@@ -30,7 +29,6 @@ class MainController extends ImageController {
   Future<void> _manageUserInfo() async {
     final authUser = AuthController.to.rxAuthUser.value;
     if (authUser == null) return;
-    debugPrint("authUser: $authUser");
     final repository = FirestoreRepository();
     final uid = authUser.uid;
     final ref = DocRefCore.publicUserDocRef(uid);
