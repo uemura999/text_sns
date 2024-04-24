@@ -7,4 +7,6 @@ class ColRefCore {
       FirebaseFirestore.instance.collection('public_users');
   static ColRef userUpdateLogsColRef(String uid) =>
       DocRefCore.publicUserDocRef(uid).collection("user_update_logs");
+  static ColRef postsColRef(String uid) =>
+      DocRefCore.publicUserDocRef(uid).collection("posts");
 }
