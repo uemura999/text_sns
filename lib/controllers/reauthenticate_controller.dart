@@ -1,9 +1,11 @@
 import 'package:get/get.dart';
 import 'package:text_sns/controllers/abstract/simple_form_controller.dart';
 import 'package:text_sns/controllers/auth_controller.dart';
+import 'package:text_sns/enums/reauthenticate_purpose.dart';
 import 'package:text_sns/repository/auth_repository.dart';
 import 'package:text_sns/ui_core/ui_helper.dart';
 import 'package:text_sns/ui_core/validator_core.dart';
+import 'package:text_sns/view/pages/reauthenticate_page.dart';
 import 'package:text_sns/view/pages/update_email_page.dart';
 
 class ReauthenticateController extends SimpleFormController {
@@ -30,9 +32,21 @@ class ReauthenticateController extends SimpleFormController {
     if (user == null) return;
     final result = await repository.reauthenticateWithCredential(user, text);
     result.when(success: (_) {
-      final purpose = Get.parameters['purpose'];
-      if (purpose == "updateEmail") {
-        Get.toNamed(UpdateEmailPage.path);
+      const key = ReauthenticatePage.purposeKey;
+      final purpose = Get.parameters[key];
+      if (purpose == null) return;
+      final enumPurpose = ReauthenticatePurpose.values.byName(purpose);
+      //"updateEmail"が渡されたら ReauthenticatePurpose.updateEmail
+      switch (enumPurpose) {
+        case ReauthenticatePurpose.updateEmail:
+          Get.toNamed(UpdateEmailPage.path);
+          break;
+        case ReauthenticatePurpose.updatePassword:
+          //TODO:パスワードを変更するページに遷移
+          break;
+        case ReauthenticatePurpose.deleteUser:
+          //TODO: ユーザーを削除する処理
+          break;
       }
       UIHelper.showFlutterToast(successMsg);
     }, failure: () {

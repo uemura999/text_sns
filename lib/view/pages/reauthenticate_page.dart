@@ -6,7 +6,8 @@ import 'package:text_sns/view/common/basic_page.dart';
 
 class ReauthenticatePage extends StatefulWidget {
   const ReauthenticatePage({super.key});
-  static const path = "/reauthenticate/:purpose";
+  static const purposeKey = "purpose";
+  static const path = "/reauthenticate/:$purposeKey";
   static String generatePath(String purpose) => "/reauthenticate/$purpose";
   @override
   State<ReauthenticatePage> createState() => _ReauthenticatePageState();
