@@ -16,15 +16,6 @@ class _UpdateEmailPageState extends SimpleFormState<UpdateEmailPage> {
   Widget build(BuildContext context) {
     final controller = Get.put(UpdateEmailController());
     return BasicPage(
-      appBarTitle: "Update email",
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          titleWidget(controller),
-          form(controller),
-          positiveButton(controller),
-        ],
-      ),
-    );
+        appBarTitle: "Update email", child: buildWidget(controller));
   }
 }

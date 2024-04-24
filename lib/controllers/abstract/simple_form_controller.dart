@@ -15,4 +15,5 @@ abstract class SimpleFormController extends GetxController {
   String get positiveButtonText;
   String get successMsg;
   String get failureMsg;
+  bool get obscureText => false;
 }
