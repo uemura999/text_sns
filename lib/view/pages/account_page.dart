@@ -30,7 +30,14 @@ class AccountPage extends StatelessWidget {
             ),
             ListTile(
                 title: const Text("Sign out"),
-                onTap: controller.onSignOutButtonPressed)
+                onTap: controller.onSignOutButtonPressed),
+            ListTile(
+              title: const Text(
+                "Delete your account",
+                style: TextStyle(color: Colors.red),
+              ),
+              onTap: controller.onDeleteUserTileTapped,
+            )
           ],
         ));
   }

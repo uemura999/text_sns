@@ -81,4 +81,14 @@ class AuthRepository {
       return const Result.failure();
     }
   }
+
+  FutureResult<bool> delete(User user) async {
+    final client = AuthClient();
+    try {
+      await client.delete(user);
+      return const Result.success(true);
+    } catch (e) {
+      return const Result.failure();
+    }
+  }
 }
