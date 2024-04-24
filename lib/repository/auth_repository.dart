@@ -71,4 +71,14 @@ class AuthRepository {
       return const Result.failure();
     }
   }
+
+  FutureResult<bool> updatePassword(User user, String newPassword) async {
+    final client = AuthClient();
+    try {
+      await client.updatePassword(user, newPassword);
+      return const Result.success(true);
+    } catch (e) {
+      return const Result.failure();
+    }
+  }
 }

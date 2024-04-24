@@ -33,4 +33,8 @@ class AuthClient {
   Future<void> verifyBeforeUpdateEmail(User user, String newEmail) async {
     await user.verifyBeforeUpdateEmail(newEmail);
   }
+
+  Future<void> updatePassword(User user, String newPassword) async {
+    await user.updatePassword(newPassword);
+  }
 }

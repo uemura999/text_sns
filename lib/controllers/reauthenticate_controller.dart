@@ -7,6 +7,7 @@ import 'package:text_sns/ui_core/ui_helper.dart';
 import 'package:text_sns/ui_core/validator_core.dart';
 import 'package:text_sns/view/pages/reauthenticate_page.dart';
 import 'package:text_sns/view/pages/update_email_page.dart';
+import 'package:text_sns/view/pages/update_password_page.dart';
 
 class ReauthenticateController extends SimpleFormController {
   @override
@@ -42,7 +43,7 @@ class ReauthenticateController extends SimpleFormController {
           Get.toNamed(UpdateEmailPage.path);
           break;
         case ReauthenticatePurpose.updatePassword:
-          //TODO:パスワードを変更するページに遷移
+          Get.toNamed(UpdatePasswordPage.path);
           break;
         case ReauthenticatePurpose.deleteUser:
           //TODO: ユーザーを削除する処理
