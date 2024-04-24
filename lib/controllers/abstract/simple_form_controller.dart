@@ -11,7 +11,7 @@ abstract class SimpleFormController extends GetxController {
   // Constant
   String get title;
   String get hintText;
-  String get validatorMsg;
+  String? Function(String?)? get validator;
   String get positiveButtonText;
   String get successMsg;
   String get failureMsg;

@@ -3,6 +3,7 @@ import 'package:text_sns/controllers/abstract/simple_form_controller.dart';
 import 'package:text_sns/controllers/auth_controller.dart';
 import 'package:text_sns/repository/auth_repository.dart';
 import 'package:text_sns/ui_core/ui_helper.dart';
+import 'package:text_sns/ui_core/validator_core.dart';
 
 class UpdateEmailController extends SimpleFormController {
   @override
@@ -10,7 +11,7 @@ class UpdateEmailController extends SimpleFormController {
   @override
   String get hintText => "New mail address";
   @override
-  String get validatorMsg => "Please enter valid mail address";
+  String? Function(String?)? get validator => ValidatorCore.email;
   @override
   String get positiveButtonText => "Receive Emails";
   @override
@@ -22,7 +23,7 @@ class UpdateEmailController extends SimpleFormController {
   void onPositiveButtonPressed() async {
     final repository = AuthRepository();
     final user = AuthController.to.rxAuthUser.value;
-    if (user == null || !GetUtils.isEmail(text)) return;
+    if (user == null || !ValidatorCore.isValidEmail(text)) return;
     final result = await repository.verifyBeforeUpdateEmail(user, text);
     result.when(success: (_) {
       UIHelper.showFlutterToast(successMsg);
