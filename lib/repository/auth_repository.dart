@@ -51,6 +51,17 @@ class AuthRepository {
     }
   }
 
+  FutureResult<bool> reauthenticateWithCredential(
+      User user, String password) async {
+    final client = AuthClient();
+    try {
+      await client.reauthenticateWithCredential(user, password);
+      return const Result.success(true);
+    } catch (e) {
+      return const Result.failure();
+    }
+  }
+
   FutureResult<bool> verifyBeforeUpdateEmail(User user, String newEmail) async {
     final client = AuthClient();
     try {
