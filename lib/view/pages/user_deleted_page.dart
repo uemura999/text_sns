@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:text_sns/constant/account_constant.dart';
 import 'package:text_sns/view/common/basic_page.dart';
 
 class UserDeletedPage extends StatelessWidget {
@@ -10,7 +11,7 @@ class UserDeletedPage extends StatelessWidget {
         child: Align(
             alignment: Alignment.center,
             child: Text(
-              "Deleted your account. Thank you.",
+              AccountConstant.userDeletedPageTitle,
               style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),
             )));
   }

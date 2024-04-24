@@ -17,4 +17,7 @@ class AuthConstant {
   static const toLoginScreenText = "Already have an account? Log in";
   static const loginTitle = "Log in";
   static const toSignupScreenText = "Don't have an account? Sign up";
+
+  static const confirmLogoutContent = "Are you sure want to sign out?";
+  static const confirmLogoutTitle = "Confirmation of sign out";
 }

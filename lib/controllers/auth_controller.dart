@@ -65,7 +65,8 @@ class AuthController extends GetxController {
 
   void onSignOutButtonPressed() async {
     DialogCore.cupertinoAlertDialog(
-        "Are you sure sign out?", "Confirmation of sign out", () async {
+        AuthConstant.confirmLogoutContent, AuthConstant.confirmLogoutTitle,
+        () async {
       await _signOut();
     });
   }

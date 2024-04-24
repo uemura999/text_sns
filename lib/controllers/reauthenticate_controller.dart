@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:text_sns/constant/account_constant.dart';
 import 'package:text_sns/controllers/abstract/simple_form_controller.dart';
 import 'package:text_sns/controllers/auth_controller.dart';
 import 'package:text_sns/enums/reauthenticate_purpose.dart';
@@ -47,8 +48,8 @@ class ReauthenticateController extends SimpleFormController {
           Get.toNamed(UpdatePasswordPage.path);
           break;
         case ReauthenticatePurpose.deleteUser:
-          DialogCore.cupertinoAlertDialog(
-              "Are you sure delete your account?", "Confirm", () {
+          DialogCore.cupertinoAlertDialog(AccountConstant.confirmDeleteUserMsg,
+              AccountConstant.confirmDeleteUserTitle, () {
             Get.back(); //ダイアログを閉じる
             AuthController.to.deleteUser();
           });
