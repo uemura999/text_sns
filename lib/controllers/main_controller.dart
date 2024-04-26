@@ -13,7 +13,7 @@ import 'package:text_sns/ui_core/ui_helper.dart';
 class MainController extends ImageController {
   static MainController get to => Get.find<MainController>();
   final rxPublicUser = Rx<PublicUser?>(null);
-
+  final deletePostIds = <String>[].obs; //削除した投稿ID
   @override
   void onInit() async {
     await _manageUserInfo();

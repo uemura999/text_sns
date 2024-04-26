@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:text_sns/controllers/main_controller.dart';
 import 'package:text_sns/models/q_doc_info/q_doc_info.dart';
 import 'package:text_sns/models/post/post.dart';
 import 'package:text_sns/view/common/byte_image.dart';
@@ -13,19 +15,25 @@ class PostCard extends StatelessWidget {
     final Post post = Post.fromJson(postDoc.data());
     final publicUser = qDocInfo.publicUser;
     final userImage = qDocInfo.userImage;
-    return Card(
-      color: Theme.of(context).primaryColor.withOpacity(0.2),
-      child: ListTile(
-        leading: ByteImage(
-          bytes: userImage,
-        ),
-        title: Text(
-          publicUser?.name ?? "",
-          style: const TextStyle(fontWeight: FontWeight.bold),
-        ),
-        subtitle: Text(post.content),
-        trailing: DeleteIcon(post: post),
-      ),
-    );
+    return Obx(() {
+      if (MainController.to.deletePostIds.contains(postDoc.id)) {
+        return const SizedBox.shrink();
+      } else {
+        return Card(
+          color: Theme.of(context).primaryColor.withOpacity(0.2),
+          child: ListTile(
+            leading: ByteImage(
+              bytes: userImage,
+            ),
+            title: Text(
+              publicUser?.name ?? "",
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            subtitle: Text(post.content),
+            trailing: DeleteIcon(postDoc: postDoc),
+          ),
+        );
+      }
+    });
   }
 }

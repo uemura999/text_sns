@@ -47,7 +47,7 @@ class FirestoreRepository {
   FutureResult<List<QDoc>> getDocs(MapQuery query) async {
     final client = FirestoreClient();
     try {
-      final qSnapshot = await client.getDocs(query);
+      final QSnapshot qSnapshot = await client.getDocs(query);
       final qDocs = qSnapshot.docs;
       return Result.success(qDocs);
     } catch (e) {
