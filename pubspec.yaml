@@ -27,6 +27,7 @@ dependencies:
   image_cropper: ^4.0.1
   image_picker: ^1.0.4
   uuid: ^3.0.7
+  flutter_hooks: ^0.20.0
 
 dev_dependencies:
   flutter_test:
