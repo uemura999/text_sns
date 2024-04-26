@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:get/get.dart';
+import 'package:text_sns/constant/post_constant.dart';
 import 'package:text_sns/core/firestore/query_core.dart';
 import 'package:text_sns/models/moderated_image/moderated_image.dart';
 import 'package:text_sns/models/post/post.dart';
@@ -11,7 +12,7 @@ import 'package:text_sns/repository/firestore_repository.dart';
 import 'package:text_sns/typedefs/firestore_typedef.dart';
 import 'package:text_sns/ui_core/ui_helper.dart';
 
-class PostsController extends GetxController {
+class PostController extends GetxController {
   final qDocInfos = <QDocInfo>[].obs;
   @override
   void onInit() async {
@@ -32,7 +33,7 @@ class PostsController extends GetxController {
         qDocInfos.add(qDocInfo);
       }
     }, failure: () {
-      UIHelper.showFlutterToast("Failed to get posts");
+      UIHelper.showFlutterToast(PostConstant.getPostFailureMsg);
     });
     super.onInit();
   }

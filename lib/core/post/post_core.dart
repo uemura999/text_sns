@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:text_sns/constant/post_constant.dart';
 import 'package:text_sns/controllers/main_controller.dart';
 import 'package:text_sns/repository/firestore_repository.dart';
 import 'package:text_sns/typedefs/firestore_typedef.dart';
@@ -8,7 +9,8 @@ import 'package:text_sns/ui_core/ui_helper.dart';
 class PostCore {
   static void onDeleteButtonPressed(QDoc postDoc) {
     DialogCore.cupertinoAlertDialog(
-        "Are you sure want to delete this post ?", "Delete post", () async {
+        PostConstant.confirmDeletePostMsg, PostConstant.confirmDeletePostTitle,
+        () async {
       Get.back();
       await _deletePost(postDoc);
     });
@@ -20,9 +22,9 @@ class PostCore {
     final result = await repository.deleteDoc(ref);
     result.when(success: (_) {
       MainController.to.deletePostIds.add(postDoc.id);
-      UIHelper.showFlutterToast("Success to delete post");
+      UIHelper.showFlutterToast(PostConstant.deletePostSuccessMsg);
     }, failure: () {
-      UIHelper.showFlutterToast("Failed to delete post");
+      UIHelper.showFlutterToast(PostConstant.deletePostFailedMsg);
     });
   }
 }
