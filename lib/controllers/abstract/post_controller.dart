@@ -12,12 +12,12 @@ import 'package:text_sns/repository/firestore_repository.dart';
 import 'package:text_sns/typedefs/firestore_typedef.dart';
 import 'package:text_sns/ui_core/ui_helper.dart';
 
-class PostController extends GetxController {
+abstract class PostController extends GetxController {
   final qDocInfos = <QDocInfo>[].obs;
+  MapQuery get query;
   @override
   void onInit() async {
     final repository = FirestoreRepository();
-    final query = QueryCore.postsCollectionQuery();
     final result = await repository.getDocs(query);
     result.when(success: (res) async {
       final userDocs = await _getUsersFromPosts(res);
