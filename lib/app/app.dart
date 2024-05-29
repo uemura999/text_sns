@@ -12,12 +12,12 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controlller = Get.put(ThemeController());
+    final controller = Get.put(ThemeController());
     return Obx(() => GetMaterialApp(
           title: F.title,
           getPages: GetPages.value,
           initialRoute: path,
-          theme: controlller.rxIsDarkTheme.value
+          theme: controller.rxIsDarkTheme.value
               ? Themes.darkTheme()
               : Themes.lightTheme(),
           debugShowCheckedModeBanner: false,
